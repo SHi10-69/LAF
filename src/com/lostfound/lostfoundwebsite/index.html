@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="nvidia">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found — NVIDIA RTX & Netflix Cinematic Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation Header -->
+<header class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <span class="brand-pill" id="brandPill">⚡ NVIDIA RTX</span>
+            <span class="logo-text">LOST & FOUND</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#report">＋ Report Item</a>
+            <a href="#inventory">⌕ Live Inventory</a>
+            <a href="#claim">✓ Submit Claim</a>
+            <a href="#features">Features</a>
+            <a href="#stats">Stats</a>
+        </nav>
+        <div class="theme-switcher">
+            <span class="switcher-label">Engine:</span>
+            <button id="btnNvidia" class="theme-btn active" onclick="setTheme('nvidia')">🟢 NVIDIA</button>
+            <button id="btnNetflix" class="theme-btn" onclick="setTheme('netflix')">🔴 Netflix</button>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+        <div class="hero-badge" id="heroBadge">PRECISION RECOVERY & REAL-TIME WEB INTEGRATION</div>
+        <h1 class="hero-title">RECONNECT WITH WHAT MATTERS.</h1>
+        <p class="hero-subtitle">
+            An enterprise lost-and-found ecosystem engineered with dual NVIDIA GeForce RTX and Netflix Cinematic aesthetics. Report lost belongings, register found items, and authenticate claims directly from web and desktop.
+        </p>
+        <div class="hero-actions">
+            <a href="#report" class="btn btn-primary">＋ Report Lost or Found Item</a>
+            <a href="#inventory" class="btn btn-secondary">⌕ Browse Live Inventory</a>
+        </div>
+    </div>
+</section>
+
+<!-- Live Metrics Counter -->
+<section id="stats" class="stats-section">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-number" id="statItems">0</div>
+            <div class="stat-label">Total Reported Inventory</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🔍</div>
+            <div class="stat-number" id="statLost">0</div>
+            <div class="stat-label">Active Lost Reports</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">✓</div>
+            <div class="stat-number" id="statFound">0</div>
+            <div class="stat-label">Discovered Belongings</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🛡</div>
+            <div class="stat-number" id="statClaims">0</div>
+            <div class="stat-label">Verified Claims Handled</div>
+        </div>
+    </div>
+</section>
+
+<!-- REPORT LOST OR FOUND ITEM SECTION (NEW) -->
+<section id="report" class="demo-section">
+    <div class="section-header">
+        <span class="section-tag">COMMUNITY REPORTING PORTAL</span>
+        <h2>REPORT A LOST OR FOUND BELONGING</h2>
+        <p>Submit your report directly into the system. All submissions sync instantly with the desktop management application.</p>
+    </div>
+
+    <div class="demo-container">
+        <div class="demo-card">
+            <div class="report-type-toggle">
+                <button type="button" id="tabLost" class="report-tab-btn active-lost" onclick="selectReportType('LOST')">
+                    ▼ I Lost an Item
+                </button>
+                <button type="button" id="tabFound" class="report-tab-btn" onclick="selectReportType('FOUND')">
+                    ▲ I Found an Item
+                </button>
+            </div>
+
+            <h3 id="reportFormTitle" style="margin-top: 18px;">Report a Lost Item</h3>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Item Name / Title *</label>
+                    <input type="text" id="reportItemName" class="form-control" placeholder="e.g. Apple MacBook Pro 14 or Leather Wallet">
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="reportCategory" class="form-control">
+                        <option>Electronics</option>
+                        <option>Wallet & Purses</option>
+                        <option>Keys</option>
+                        <option>Books & Stationery</option>
+                        <option>ID Card & Badges</option>
+                        <option>Clothing & Apparel</option>
+                        <option>Bags & Backpacks</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Location (Where Lost or Found) *</label>
+                    <input type="text" id="reportLocation" class="form-control" placeholder="e.g. Central Library 2nd Floor, Room 204">
+                </div>
+                <div class="form-group">
+                    <label>Reporter / Owner Name *</label>
+                    <input type="text" id="reportOwnerName" class="form-control" placeholder="Your full name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Phone / Email *</label>
+                <input type="text" id="reportContact" class="form-control" placeholder="e.g. name@example.com or 555-0199">
+            </div>
+
+            <div class="form-group">
+                <label>Detailed Description & Identifying Marks</label>
+                <textarea id="reportDescription" class="form-control" rows="3" placeholder="Provide distinct characteristics, scratches, colors, case details, or serial hints..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Item Photo (Optional — Attach real photo or sample)</label>
+                <input type="file" id="reportPhotoInput" accept="image/*" style="display: none;" onchange="handleItemPhotoSelected(event)">
+                <div class="photo-upload-simulator" id="reportPhotoBox" onclick="document.getElementById('reportPhotoInput').click()">
+                    <span id="reportPhotoText">📷 Click to upload photo (JPG, PNG, WEBP)</span>
+                    <img id="reportPhotoPreview" class="photo-preview-thumb hidden" alt="Thumbnail Preview">
+                </div>
+                <div style="margin-top: 6px; display: flex; gap: 8px;">
+                    <button type="button" class="btn btn-secondary" style="padding: 6px 12px; font-size: 11px;" onclick="attachSamplePhoto('item')">Use Sample Item Photo</button>
+                    <button type="button" id="btnClearItemPhoto" class="btn btn-secondary hidden" style="padding: 6px 12px; font-size: 11px; color: #EF4444;" onclick="clearItemPhoto()">Remove Photo</button>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-block" style="margin-top: 12px;" onclick="submitReportItem()">
+                ＋ Submit Report to System
+            </button>
+
+            <div id="reportAlert" class="demo-alert hidden"></div>
+        </div>
+    </div>
+</section>
+
+<!-- LIVE INVENTORY & RECENT REPORTS SECTION (NEW) -->
+<section id="inventory" class="inventory-section">
+    <div class="section-header">
+        <span class="section-tag">CENTRAL INVENTORY CATALOG</span>
+        <h2>LIVE RECOVERY INVENTORY</h2>
+        <p>Real-time belongings registered across desktop and web platforms. Search, inspect, and claim items directly.</p>
+    </div>
+
+    <div class="inventory-controls">
+        <input type="text" id="invSearchInput" class="form-control" placeholder="⌕ Search by name, category, or location..." oninput="filterInventory()">
+        <select id="invCategoryFilter" class="form-control" onchange="filterInventory()">
+            <option value="ALL">All Categories</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Wallet & Purses">Wallet & Purses</option>
+            <option value="Keys">Keys</option>
+            <option value="Books & Stationery">Books & Stationery</option>
+            <option value="ID Card & Badges">ID Card & Badges</option>
+            <option value="Clothing & Apparel">Clothing & Apparel</option>
+            <option value="Bags & Backpacks">Bags & Backpacks</option>
+            <option value="Other">Other</option>
+        </select>
+        <select id="invTypeFilter" class="form-control" onchange="filterInventory()">
+            <option value="ALL">All Types (Lost & Found)</option>
+            <option value="FOUND">▲ Found Items</option>
+            <option value="LOST">▼ Lost Belongings</option>
+        </select>
+        <button type="button" class="btn btn-secondary" onclick="loadLiveBackendData()">↻ Refresh</button>
+    </div>
+
+    <div id="inventoryGrid" class="inventory-grid">
+        <!-- Populated dynamically via script.js -->
+        <div class="loading-card">Loading inventory from live system...</div>
+    </div>
+</section>
+
+<!-- SUBMIT OWNERSHIP CLAIM SECTION -->
+<section id="claim" class="demo-section">
+    <div class="section-header">
+        <span class="section-tag">VERIFICATION & RECOVERY</span>
+        <h2>SUBMIT AN OWNERSHIP CLAIM</h2>
+        <p>Claim genuine ownership on any discovered found item. Attach photo verification proof to expedite admin authentication.</p>
+    </div>
+
+    <div class="demo-container">
+        <div class="demo-card">
+            <h3>Submit Ownership Claim</h3>
+            <div class="form-group">
+                <label>Target Found Item *</label>
+                <select id="demoItemSelect" class="form-control">
+                    <option value="0">Loading discovered items...</option>
+                </select>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Claimant Full Name *</label>
+                    <input type="text" id="demoName" class="form-control" placeholder="Your name" value="Jordan Smith">
+                </div>
+                <div class="form-group">
+                    <label>Contact Phone / Email *</label>
+                    <input type="text" id="demoContact" class="form-control" placeholder="Your email or phone" value="jordan.smith@example.com">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Ownership Proof Details *</label>
+                <textarea id="demoProof" class="form-control" rows="3" placeholder="Describe unique receipts, stickers, scratches, or accessory serials...">Has a small white sticker on the back left corner and slight scratch near the USB-C port.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Verification Proof Photo (Optional)</label>
+                <input type="file" id="claimProofInput" accept="image/*" style="display: none;" onchange="handleClaimProofSelected(event)">
+                <div class="photo-upload-simulator" id="uploadSimulator" onclick="document.getElementById('claimProofInput').click()">
+                    <span id="uploadSimText">📷 Click to upload proof receipt / photo</span>
+                    <img id="claimPhotoPreview" class="photo-preview-thumb hidden" alt="Proof Preview">
+                </div>
+                <div style="margin-top: 6px; display: flex; gap: 8px;">
+                    <button type="button" class="btn btn-secondary" style="padding: 6px 12px; font-size: 11px;" onclick="attachSamplePhoto('proof')">Use Sample Proof Receipt</button>
+                    <button type="button" id="btnClearProofPhoto" class="btn btn-secondary hidden" style="padding: 6px 12px; font-size: 11px; color: #EF4444;" onclick="clearProofPhoto()">Remove Proof</button>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="submitDemoClaim()">Submit Claim for Verification</button>
+            <div id="demoSuccessAlert" class="demo-alert hidden"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Features -->
+<section id="features" class="features-section">
+    <div class="section-header">
+        <span class="section-tag">ADVANCED CAPABILITIES</span>
+        <h2>ENGINEERED FOR TRUST & PRECISION</h2>
+        <p>Combining local Java object serialization with high-performance desktop UX and photo authentication.</p>
+    </div>
+
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-icon">✦</div>
+            <h3>Automated Precision Matching</h3>
+            <p>Weighted similarity scoring analyzing title, category, location, and description keywords to instantly pair lost reports with found belongings.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">📷</div>
+            <h3>Photo Proof Verification</h3>
+            <p>Claimants can optionally attach receipts, device serial photos, or images to verify genuine ownership, empowering administrators with quick visual authentication.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>NVIDIA GeForce RTX Theme</h3>
+            <p>Titanium carbon obsidian surfaces with signature electric neon green accents, glowing borders, and high-readability pure white typography.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🍿</div>
+            <h3>Netflix Cinematic Mode</h3>
+            <p>Deep pitch-black canvas with iconic Netflix Crimson Red buttons, matte charcoal cards, and cinematic contrast.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔒</div>
+            <h3>Role-Based Access Control</h3>
+            <p>Strict boundaries separating community users from administrators, with secure dossier review and instant one-click claim adjudication.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌐</div>
+            <h3>Bidirectional Web Integration</h3>
+            <p>Built-in embedded Java HTTP server powering REST API endpoints for real-time item reporting, claim adjudication, and instant database updates.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <p>© 2026 Lost & Found Recovery System. Professional Enterprise Edition.</p>
+        <p class="footer-theme-tag">Dual Aesthetic Powered: NVIDIA RTX Neon Green & Netflix Cinematic Crimson</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
